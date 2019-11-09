@@ -1,0 +1,61 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<link rel="stylesheet" href="css/index.css" />
+		
+	</head>
+	<body>
+		   <div class="all">
+			   <div class="center">
+			   	  <nav class="top" th:fragment="topbar">
+			   	  	<div class="box-img">
+			   	  		<img  class="img-circle" src="img/image-01.jpg " style="width: 50px;height: 50px;"/>
+			   	  	</div>
+			   	  	<div class="box-info">
+			   	  		<table>
+			   	  			<tr>
+			   	  				<td><font face="arial narrow" size="3" id="u_remark">汤正广</font></td>
+			   	  			</tr>
+			   	  			<tr>
+			   	  				<td><font>账号：<font id="u_ids">123456</font></font></td>
+			   	  			</tr>
+			   	  		</table>
+			   	  		
+			   	  	</div>
+			   	  	<div class="box-logo">
+			   	  		<tr>
+			   	  			<td>信鸽</td>
+			   	  			<td><img width="50px" height="50px" src="img/logo.jpg"/></td>
+			   	  			
+			   	  		</tr>
+			   	  	</div>
+			   	  </nav>
+			   	  <!-- 左侧 -->
+			   	  <nav class="left" id="leftbar">
+			   	  	 <table class="table table-bordered box-table" style="border: 1px solid #0062CC;">
+			   	  	 	<tr>
+			   	  	 		<td colspan="1"><a href="#" target="boxiframe">写信</a></td>
+			   	  	 		<td colspan="1"><a href="#" target="boxiframe">收信</a></td>
+			   	  	 	</tr>
+			   	  	 	
+			   	  	 	<tr><td colspan="2"><a href="#" target="boxiframe">已发送</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a href="#" target="boxiframe">已收藏</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a href="#" target="boxiframe">已删除</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a href="#" target="boxiframe">通讯录</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a href="#" target="boxiframe">添加联系人</a></td></tr>
+			   	  	    <tr><td colspan="2"><a href="#" target="boxiframe">个人中心</a></td></tr>
+			   	  	 </table>
+			   	  </nav>
+			   	  <div class="right">
+			   	  	<iframe name="boxiframe" class="box-iframe" src="receive.html" scrolling="yes" frameborder="0"></iframe>
+			   	  </div>
+			   </div>
+			</div>
+		</div>
+	</body>
+</html>

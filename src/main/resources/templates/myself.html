@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery.js}" ></script>
+
+	</head>
+	<style type="text/css">
+	.all-myself{
+		width: 740px;
+	    height: 400px;
+
+
+	}
+		.top-myself{
+			width: 740px;
+			height: 40px;
+    	}
+		.cen-myself table tr td{
+			text-align: center;
+		}
+	</style>
+	<body>
+     <div class="all-myself">
+			<div class="top-myself">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">个人中心</font>		
+			</div>
+			<form enctype="multipart/form-data" method="post" th:action="@{/myselfupload}">
+			<center class="cen-myself">
+				<table class="table table-bordered" style="width: 400px;">
+					<tr>
+						<td colspan="2"><img class="img-circle" th:src="@{'/images/' + ${userinfo.getInfoHeadimg()}}" width="60px" height="60px"/></td>
+					</tr>
+					<tr>
+						<td width="30%"><label>账号</label></td>
+						<td>
+							<input name="infoUser" th:value="${userinfo.getInfoUser()}" class="form-control" readonly/>
+						    <input  name="infoId" hidden="hidden" th:value="${userinfo.getInfoId()}"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>昵称</label></td>
+						<td>
+							<input type="text" class="form-control" th:value="${userinfo.getInfoRemark()}" name="infoRemark"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><label>签名</label></td>
+						<td>
+							<input type="text" class="form-control" th:value="${userinfo.getInfoSign()}" name="infoSign"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>头像</label></td>
+						<td>
+							<input type="file" class="btn btn-default" name="file"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label>性别</label></td>
+						<td>
+					      <label>男士</label><input type="radio" value="gentleman" name="infoSex" th:attr="checked=${userinfo.getInfoSex()!='lady'?'true':'false'}"/>
+						  &nbsp;&nbsp;&nbsp;&nbsp;
+						  <label>女士</label><input type="radio" value="lady" name="infoSex" th:attr="checked=${userinfo.getInfoSex()=='lady'?'true':'false'}"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" class="btn btn-default" style="width: 100px"></td>
+					</tr>
+				</table>
+			</center>
+			</form>
+			</div>
+		</div>
+			   	 
+			   </div>
+			</div>
+
+	</body>
+</html>
+

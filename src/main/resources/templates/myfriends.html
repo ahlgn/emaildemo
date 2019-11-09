@@ -1,0 +1,108 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery.js}" ></script>
+		<!--<link rel="stylesheet" href="css/receive.css" />-->
+	</head>
+
+    <script type="text/javascript">
+		var address="http://47.103.1.87:8081/"
+        $(function (){
+            /*          开始进入           */
+            $("#friendstable tr").click(function () {
+                var fid=$(this).attr('id');
+               /* alert(fid);*/
+                //获取到了id发送链接
+                window.location.href=address+"myfriendsitemview/"+fid;
+            })
+
+            /*          结束    */
+
+        })
+
+    </script>
+
+	<style type="text/css">
+.all-receive{
+	width: 758px;
+	height: 420px;
+}
+.top-receive{
+
+	width: 757px;
+	height: 40px;
+
+}
+.navs{
+	width: 740px;
+	height: 40px;
+    margin-left: 3px;
+    
+}
+.navs table{
+	width: 740px;
+}
+.navs table tr td{
+	text-align: center;
+	font-size: 20px;
+}
+.list{
+	margin-top: 3px;
+	margin-left: 3px;
+	width: 740px;
+	height: 333px;
+	/*border: 2px solid #C0C0C0;*/
+}
+.list table tr td{
+	height: 40px;
+	text-align: center;
+	font-size: 15px;
+}
+
+
+	</style>
+	<body>
+		    
+			   	  <div class="right">
+			   	  	<div class="all-receive">
+			<div class="top-receive">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px; float: left;">通讯录</font>
+			</div>
+			<div class="navs">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">联系人</td>
+						<td width="40%">签名</td>
+						<td width="30%">账号</td>
+					</tr>
+				</table>
+				
+			</div>
+			<div class="list">
+				<form>
+				<table class="table table-hover" th:id="friendstable">
+					<tr th:each="friend:${friends}" th:id="${friend.getFriend().getfId()}">
+						<td width="15%" style="text-align: right; padding-right: 0px">
+							<img width="35px" height="35px" class="img-circle" th:src="@{'/images/' + ${friend.getUserinfo().getInfoHeadimg()}}"/>
+						</td>
+						<td width="15%" style="text-align: left ;padding-top: 15px;padding-left: 0px">
+							&nbsp;&nbsp;
+							<span th:text="${friend.getFriend().getfRemark()}">收件人</span></td>
+						<td width="40%"><span th:text="${friend.getUserinfo().getInfoSign()}">主题</span></td>
+						<td width="30%"><span th:text="${friend.getFriend().getfFriend()}">960829</span></td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</div>
+			   	  </div>
+			   </div>
+		 
+		</div>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<link rel="stylesheet" href="css/receive.css" />
+		<script type="text/javascript" src="js/receive.js" ></script>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		<div th:replace="index::topbar"></div>
+		<div th:replace="index::#(activeUri='leftbar')"></div>
+		<div class="all">
+			<div class="top">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">收信箱</font>
+				<font>(共<span>200</span>封有<span>10</span>封<a href="#">未读</a>)</font>
+				
+			</div>
+			<div class="navs">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">收件人</td>
+						<td width="40%">主题</td>
+						<td width="30%">日期</td>
+					</tr>
+				</table>
+				
+			</div>
+			<div class="list">
+				<table class="table table-striped">
+					<tr onclick="test()">
+						<td width="30%"><img width="35px" class="img-circle" src="img/image-01.jpg" />&nbsp;&nbsp;<span>收件人</span></td>
+						<td width="40%"><span>主题</span></td>
+						<td width="30%"><span>日期</span></td>
+					</tr>
+				    <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

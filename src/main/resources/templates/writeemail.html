@@ -1,0 +1,132 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<script type="text/javascript" src="/js/jquery.js" ></script>
+	</head>
+	<script type="text/javascript">
+		var address="http:47.103.1.87:8081";
+		$(function (){
+ 	/*       对输入的信息进行校证                  */
+			var eTheme=$("#eTheme");
+			var eContent=$("#eContent");
+            var msg="";
+			$("#onuploaddata").click(function () {
+				if (eTheme.val().trim()==""){
+					msg="主题不能为空！";
+				}
+				if(eTheme.val().length>30){
+					msg="主题过长！";
+				}
+				if(eContent.val().trim()==""){
+					msg="文本内容不能为空！";
+				}
+
+				if(msg!=""){
+					alert(msg);
+				}else{
+					alert("Ok!");
+					/*        数据提价的id必须是form表单的id      */
+					$("#uploadfrom").submit();
+
+				}
+			})
+
+
+			/*         end             */
+
+			/*     查看发送用户是否存在           */
+			$("#eReceive").blur(function(){
+				//     异步验证账号是否已存
+
+				var uIdjson = $("#eReceive").val();
+				var data={uId: uIdjson};
+
+				$.ajax({
+					url:address+"registercheck",
+					type:"POST",
+					dataType:'JSON',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify(data),
+					async:true,
+					success:function (result){
+				 		if (result.status){
+							alert("用户不存在");
+							$("#eReceive").val("");
+
+							$("#eReceive").focus();
+						}
+
+					}
+				})
+
+			})
+		})
+    /*                     end              */
+	</script>
+
+	<style type="text/css">
+	.all-wr{
+		width: 700px;
+	        height: 370px;
+
+	}
+		.top-wr{
+			width: 700px;
+			height: 38px;
+			padding-top: 10px;
+		}
+		.cen-wr table tr td{
+			text-align: center;
+		}
+	</style>
+	<body>
+		   <div class="all-wr">
+		 
+			   	  
+			   	  <div class="right">
+			   	  	<div class="all-myself">
+			<div class="top-wr">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">写信</font>
+		 	</div>
+			<form action="/writeupload" enctype="multipart/form-data"method="post" id="uploadfrom">
+			<center class="cen-wr">
+				 <table class="table" style="width: 600px;">
+				 	<tr>
+				 		<td width="11%" style="display: table-cell;vertical-align: middle;" >收件人:</td>
+				  	    <td  width="89%" ><input type="text" th:name="eReceive" class="form-control" id="eReceive" th:value="${fid==0?'':fid}"/></td>
+						<td width="0"><input hidden="hidden" type="text" th:value="${uid}"  th:name="eSendpeople" /></td>
+				 	</tr>
+				 	<tr>
+				 		<td style="display: table-cell;vertical-align: middle;" >主题:</td>
+				  	    <td  colspan="2"><input id="eTheme" th:name="eTheme" type="text" class="form-control"/></td>
+				 	</tr>
+				 	<tr>
+				 		<td>内容:</td>
+				  	    <td colspan="2"><textarea class="form-control" style="height:130px;" th:name="eContent" id="eContent"></textarea></td>
+				 	</tr>
+				 	<tr>
+						<td style="display: table-cell;vertical-align: middle;">加附件:</td>
+						<td>
+							<input type="file" class="btn btn-default" th:name="file"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3"><button type="button" id="onuploaddata" class="btn btn-default" style="width: 100px" >提交</button></td>
+					</tr>
+				 </table>
+			</center>
+			</form>
+			</div>
+		</div>
+			   	  </div>
+			   </div>
+			</div>
+		</div>
+	</body>
+</html>
+

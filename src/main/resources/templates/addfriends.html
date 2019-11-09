@@ -1,0 +1,127 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery.js}" ></script>
+	</head>
+	<script type="text/javascript">
+		var address="http://47.103.1.87:8081/";
+		$(function (){
+			$("#adduser").click(function (){
+				var fid=$("#infouser").html();
+				var uid=$("#uId").val();
+             /*   alert(fid);
+                alert(uid);*/
+				var data={fUser: uid,
+					      fFriend:fid };
+				$.ajax({
+					  url:address+"adduserAsay",
+					 type:'POST',
+					 dataType:'JSON',
+					 contentType:'application/json;charset=UTF-8',
+					 data:JSON.stringify(data),
+					 async:true,
+					 success:function (result){
+						/*alert(result.status);*/
+						if (result.status){
+							alert("添加用户成功！");
+							window.location.href=address+"addfriends/"+uid;
+
+						}else {
+							alert("用户已添加！");
+							window.location.href=address+"addfriends/"+uid;
+
+						}
+
+					}
+						})
+
+			})
+		})
+
+
+	</script>
+	<style type="text/css">
+.all-receive{
+	width: 758px;
+	height: 420px;
+}
+.top-receive{
+	margin-bottom: 10px;
+	width: 757px;
+	height: 40px;
+	padding-top: 10px;
+}
+.navs{
+	width: 740px;
+	height: 40px;
+    margin-left: 3px;
+}
+.navs table{
+	width: 740px;
+}
+.navs table tr td{
+	text-align: center;
+	font-size: 20px;
+}
+.list{
+	margin-top: 3px;
+	margin-left: 3px;
+	width: 740px;
+	height: 333px;
+	/*border: 2px solid #C0C0C0;*/
+}
+.list table tr td{
+	height: 40px;
+	text-align: center;
+}
+
+
+	</style>
+	<body>
+		    
+			   	  <div class="right">
+			   	  	<div class="all-receive">
+			<div class="top-receive">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px; float: left;">添加联系人</font>
+				<form style="float: left;" action="/addfriendform" method="post">
+				<input type="text" class="form-control" style="float: left; width:120px;margin-left: 100px;" name="fId" />
+				<input hidden="hidden" th:value="${user.getuId()}" name="uId" id="uId">
+
+				<input type="submit" class="btn btn-default" value="搜索"/>
+				</form>
+			</div>
+			<div class="navs">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">联系人</td>
+						<td width="40%">签名</td>
+						<td width="20%">账号</td>
+						<td width="20%">操作</td>
+					</tr>
+				</table>
+				
+			</div>
+			<div class="list">
+				<form>
+				<table class="table table-hover">
+					<tr th:if="${userinfo!=null}">
+						<td width="30%"><img width="35px" height="35px" class="img-circle" th:src="@{'/images/' + ${userinfo.getInfoHeadimg()}}" />&nbsp;&nbsp;<span th:text="${userinfo.getInfoRemark()}">收件人</span></td>
+						<td width="40%"><span th:text="${userinfo.getInfoSign()}">主题</span></td>
+						<td width="20%"><span th:text="${userinfo.getInfoUser()}" id="infouser">960829</span></td>
+						<td width="10%"><input type="button" class="btn btn-default" value="添加" id="adduser"/></td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</div>
+			   	  </div>
+			   </div>
+		 
+		</div>
+	</body>
+</html>

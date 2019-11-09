@@ -1,0 +1,132 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery.js}" ></script>
+
+ 
+	</head>
+	<script type="text/javascript">
+		var address="http://47.103.1.87:8081/";
+		$(function (){
+			/*           修改备注                */
+
+			$("#update").blur(function(){
+				//     异步验证账号是否已存
+
+				var fid=$("#fid").html();
+				var remark=$("#remark").val();
+
+				if(remark.trim()!=""){
+					$.ajax({
+						url:address+"updateremark/"+fid+"/"+remark,
+						type:"GET",
+						dataType:'JSON',
+						contentType:'application/json;charset=UTF-8',
+						async:true,
+						success:function (result){
+							alert("修改成功！")
+							remark=result.remark;
+						}
+					})
+				}else {
+                     alert("备注不可以为空！")
+				}
+
+
+			})
+			/*         end   */
+
+
+
+		})
+	</script>
+
+	<style type="text/css">
+	.all-myself{
+		width: 758px;
+	        height: 420px;
+	}
+		.top-myself{
+			width: 757px;
+			height: 40px;
+			padding-top: 10px;
+		}
+		.cen-myself table tr td{
+			text-align: center;
+		}
+	</style>
+	<body>
+	   	   
+		    <div class="all-myself">
+			<div class="top-myself">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">我的联系人</font>		
+			</div>
+			<form>
+			<center class="cen-myself">
+				<table class="table table-bordered" style="width: 400px; ">
+					<tr>
+						<td colspan="3"><img class="img-circle" th:src="@{'/images/' + ${userinfo.getInfoHeadimg()}}" width="60px"/></td>
+					</tr>
+					<tr>
+						<td width="30%"><label>账号</label></td>
+						<td colspan="2">
+							<span th:text="${userinfo.getInfoUser()}">132456</span>
+						    <span th:text="${friends.getfId()}" hidden="hidden" id="fid"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label>备注</label></td>
+						<td>
+							<input value="chao" class="form-control" th:value="${friends.getfRemark()}" id="remark"/>
+						</td>
+						<td>
+							
+						 	<input type="button" class="btn btn-default" style="width: 100px" value="确认修改" id="update">
+						</td>
+					</tr>
+					<tr>
+						<td><label>昵称</label></td>
+						<td colspan="2">
+							<span th:text="${userinfo.getInfoRemark()}">vali</span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><label>签名</label></td>
+						<td colspan="2">
+							<span th:text="${userinfo.getInfoSign()}">你好吗</span>
+						</td>
+					</tr>
+					 
+					<tr>
+						<td><label>性别</label></td>
+						<td colspan="2">
+					      <span th:if="${userinfo.getInfoSex()}=='gentleman'">男士</span>
+							<span th:if="${userinfo.getInfoSex()}=='lady'">女士</span>
+						</td>
+					</tr>
+					<tr>
+						 <td colspan="3">
+						 	<a id="delete" class="btn btn-default"  style="width: 100px" th:href="@{'/delete/'+${friends.getfId()}}">删除联系人</a>
+							 <a  class="btn btn-default"  style="width: 100px" th:href="@{'/writeemail/'+${friends.getfUser()}+'/'+${friends.getfFriend()}}">发送信息</a>
+					     
+						 </td>
+				
+					</tr>
+				</table>
+			</center>
+			</form>
+			</div>
+		</div>
+			   	 
+			   </div>
+			</div>
+		</div>
+	</body>
+</html>
+

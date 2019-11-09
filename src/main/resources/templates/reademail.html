@@ -1,0 +1,150 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<script type="text/javascript" src="/js/jquery.js" ></script>
+	</head>
+	<script type="text/javascript">
+		$(function (){
+			var address="http://47.103.1.87:8081/";
+			/*      收藏         */
+			$("#conllection").click(function () {
+                      var eidjson=$("#eid").val();
+                      var data={eId:eidjson};
+                    /*   alert($("#eid").val());*/
+                      $.ajax({
+						  url: address+"reademail/itemconnection",
+						  type: 'POST',
+						  dataType: 'JSON',
+						  contentType: 'application/json;charset=UTF-8',
+						  data: JSON.stringify(data),
+						  async: true,
+						  success: function (result) {
+						  	/* 将返回的值装换成json数据 */
+							 console.log(result.status);
+						 	/*var jsonresult=eval("("+result+")");*/
+						  /*	console.log(jsonresult.status);*/
+						  	if (result.status){
+								  alert("已收藏！");
+								  $("#conllectiontext").html('已收藏');
+							  } else {
+								  alert("已取消收藏！");
+								  $("#conllectiontext").html('收藏');
+							  }
+						  }
+					  })
+
+			   }
+	 		)
+
+			/*      收藏结束      */
+
+			/*       删除          */
+
+			$("#deleteemail").click(function () {
+						var eidjson=$("#eid").val();
+						var ereceivepeople=$("#ereceivepeople").val();
+						var data={eId:eidjson};
+						alert($("#eid").val());
+						$.ajax({
+							url: address+"reademail/itemdelete",
+							type: 'POST',
+							dataType: 'JSON',
+							contentType: 'application/json;charset=UTF-8',
+							data: JSON.stringify(data),
+							async: true,
+							success: function (result) {
+								/!* 将返回的值装换成json数据 *!/
+								/*var jsonresult=eval("("+result+")");*/
+								//控制台打印数据
+								console.log(result.status);
+								if (result.status){
+								    //删除之后返回读信界面
+									window.location.href=address+"received/"+ereceivepeople;
+								} else {
+
+								}
+							}
+						})
+
+					})
+				}
+			)
+
+			/*        删除结束          */
+
+	</script>
+
+	<style type="text/css">
+	.all-wr{
+		width: 758px;
+	        height: 420px;
+	        border: 2px solid #C0C0C0;
+	}
+		.top-wr{
+			width: 757px;
+			height: 40px;
+			padding-top: 10px;
+		}
+		.cen-wr table tr td{
+
+		}
+	</style>
+	<body>
+		 
+			    
+			   	  <div class="right">
+			   	  	<div class="all-myself">
+			<div class="top-wr">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">读信</font>
+				<input  type="text" hidden="hidden" id="eid" th:value="${email.geteId()}"/>
+				<input  type="text" hidden="hidden" id="ereceivepeople" th:value="${email.geteReceive()}"/>
+			   <span id="urlname" hidden="hidden" th:text="${email.geteFileurl()}"></span>
+			</div>
+			<form>
+			<center class="cen-wr">
+				 <table class="table" style="width: 600px;">
+				 	<tr>
+				 		<td width="11%"  style="display: table-cell;vertical-align: middle;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            发件人:</td>
+				  	    <td><input type="text" class="form-control" th:value="${email.geteSendpeople()}"  disabled/></td>
+				 	</tr>
+				 	<tr>
+				 		<td style="display: table-cell;vertical-align: middle;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            主题:</td>
+				  	    <td colspan="2"><input type="text" class="form-control" th:value="${email.geteTheme()}" disabled/></td>
+				 	</tr>
+				 	<tr>
+				 		<td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            内容:</td>
+				  	    <td colspan="2"><textarea class="form-control" style="height:160px;"  th:text="${email.geteContent()}" disabled></textarea></td>
+				 	</tr>
+				 	 
+					<tr>
+						<td  ><button type="button"  class="btn btn-default" style="width: 100px" id="conllection" th:value="${email.geteOrcollection()}"><span th:text="${email.geteOrcollection()}=='Y'?'已收藏':'收藏'" id="conllectiontext"></span></button></td>
+						<td  ><button   class="btn btn-default" style="width: 100px"  id="deleteemail">删除</button></td>
+					    <td  >
+							<a th:if="${email.geteFileurl()!=null}" th:href="'http://47.100.234.70:8080/downland/'+${email.geteFileurl()}"   class="btn btn-default" style="width: 100px" id="downlan">下载附件</a>
+
+						</td>
+					
+					</tr>
+				 </table>
+			</center>
+			</form>
+			</div>
+		</div>
+			   	  </div>
+			   </div>
+			</div>
+		 
+	</body>
+</html>
+

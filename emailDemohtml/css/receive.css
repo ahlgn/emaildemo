@@ -1,0 +1,35 @@
+.all{
+	width: 758px;
+	height: 420px;
+	border: 1px solid #C0C0C0;
+}
+.top{
+	width: 757px;
+	height: 40px;
+	padding-top: 10px;
+}
+.navs{
+	width: 740px;
+	height: 40px;
+	/*border: 2px solid #C0C0C0;*/
+    margin-left: 3px;
+}
+.navs table{
+	width: 740px;
+}
+.navs table tr td{
+	text-align: center;
+	font-size: 20px;
+}
+.list{
+	margin-top: 3px;
+	margin-left: 3px;
+	width: 740px;
+	height: 333px;
+	/*border: 2px solid #C0C0C0;*/
+}
+.list table tr td{
+	height: 40px;
+	text-align: center;
+}
+

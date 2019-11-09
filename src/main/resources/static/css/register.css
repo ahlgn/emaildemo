@@ -1,0 +1,29 @@
+.all{
+	position: relative;
+	margin: 80px auto;
+	width:1200px;
+	height:650px;
+	background-color: red;
+	background-image: url(../img/em_bg.jpg);
+}
+
+.box-form{
+	position: absolute;
+	width: 300px;
+	height: 320px;
+    right: 50px;
+    bottom: 50px;
+    background-color:aliceblue;
+	opacity: 0.92;
+}
+
+.form-login{
+	padding: 0 auto;
+}
+
+.table-form{
+	margin: 60px auto;
+}
+.table-form tr td{
+	padding-top: 8px;
+}

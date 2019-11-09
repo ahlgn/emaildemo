@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>register</title>
+		<link rel="stylesheet" th:href="@{css/register.css}" />
+		<link rel="stylesheet" th:href="@{css/bootstrap.css}" />
+		<script type="text/javascript" th:src="@{js/jquery.js}" ></script>
+	</head>
+	<script type="text/javascript">
+		$(function(){
+			var address="http://47.103.1.87:8081/";
+          /*       开始            */
+			$("#registerbtn").click(function(){
+
+				var uId=$("#uId");
+				var uPassword=$("#uPassword");
+				var reuPassword= $("#reuPassword");
+                var msg="";
+
+				if(uId.val().trim()==""){
+					msg="账号不能为空！";
+					uId.focus();
+				}else if(uId.val().length<6||uId.val().length>9){
+                    msg="账号的位数是6-9位！"
+                }else if(uPassword.val().trim().length<8){
+				    alert(uPassword.val().trim().length);
+					msg="密码位数不能小于8位";
+				}else if(uPassword.val().trim()==""){
+					msg="密码不能为空！";
+					uPassword.focus();
+				}else if(uPassword.val()!=reuPassword.val()){
+					msg="密码不重复";
+					$("#uPassword").val("");
+					$("#reuPassword").val("")
+					uPassword.focus();
+				}
+
+				if(msg!=""){
+					alert(msg);
+				}else{
+					alert("ok");
+					$("#registerfrom").submit();
+				}
+			   })
+
+			/*     结束    */
+
+             /*     异步验证账号      */
+            $("#uId").blur(function(){
+                //     异步验证账号是否已存
+
+                var uIdjson = $("#uId").val();
+				var data={uId: uIdjson};
+
+					$.ajax({
+						url:address+"registercheck",
+						type:"POST",
+						dataType:'JSON',
+						contentType:'application/json;charset=UTF-8',
+						data:JSON.stringify(data),
+						async:true,
+						success:function (result){
+                          alert(result.status);
+							if (!result.status){
+								alert("账号已经存在");
+								$("#uId").val("");
+								$("#uPassword").val("");
+								$("#reuPassword").val("");
+								$("#uId").focus();
+							}
+
+						}
+					})
+
+            })
+
+             /*              end           */
+
+               } )
+	</script>
+	<body>
+		<div class="all">
+			<div class="box-form">
+				<form class="form-register" id="registerfrom" action="/adduser"    method="post">
+					<table class="table-form">
+						<tr style="text-align: center;">
+							<td colspan="2"><label><font face="arial black" size="5">注册</font></label></td>
+						</tr>
+						<tr>
+							<!--oninput="value=value.replace(/[^\d]/g,'')" 设置只能输入纯文本数字  -->
+							<td colspan="2"><input name="uId" id="uId" type="text" class="form-control" placeholder="账号6-9位" oninput="value=value.replace(/[^\d]/g,'')"/></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input name="uPassword"  id="uPassword" type="password" class="form-control" placeholder="密码(至少8位)" /></td>
+						</tr>
+						<tr>
+						<td colspan="2"><input name="reuPassword" id="reuPassword" type="password" class="form-control" placeholder="确认密码" /></td>
+					    </tr>
+						<tr>
+                            <td><button type="button" id="registerbtn" class="btn btn-default" style="width: 120px;">确认</button></td>
+						    <td><button type="reset" class="btn btn-default" style="width: 120px;">重置</button></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

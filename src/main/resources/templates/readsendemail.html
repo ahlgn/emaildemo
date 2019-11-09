@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<script type="text/javascript" src="/js/jquery.js" ></script>
+	</head>
+	<script type="text/javascript">
+		$(function (){
+
+
+		})
+
+
+	</script>
+
+	<style type="text/css">
+	.all-wr{
+		width: 758px;
+	        height: 420px;
+	        border: 2px solid #C0C0C0;
+	}
+		.top-wr{
+			width: 757px;
+			height: 40px;
+			padding-top: 10px;
+		}
+		.cen-wr table tr td{
+
+		}
+	</style>
+	<body>
+		 
+			    
+			   	  <div class="right">
+			   	  	<div class="all-myself">
+			<div class="top-wr">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">读信</font>
+				<input  type="text" hidden="hidden" id="eid" th:value="${email.geteId()}"/>
+				<input  type="text" hidden="hidden" id="ereceivepeople" th:value="${email.geteReceive()}"/>
+			</div>
+			<form>
+			<center class="cen-wr">
+				 <table class="table" style="width: 600px;">
+				 	<tr>
+				 		<td width="11%"  style="display: table-cell;vertical-align: middle;">
+
+                            收件人:</td>
+				  	    <td><input type="text" class="form-control" th:value="${email.geteReceive()}"  disabled/></td>
+				 	</tr>
+				 	<tr>
+				 		<td style="display: table-cell;vertical-align: middle;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            主题:</td>
+				  	    <td colspan="2"><input type="text" class="form-control" th:value="${email.geteTheme()}" disabled/></td>
+				 	</tr>
+				 	<tr>
+				 		<td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            内容:</td>
+				  	    <td colspan="2"><textarea class="form-control" style="height:160px;"  th:text="${email.geteContent()}" disabled></textarea></td>
+				 	</tr>
+				 	 
+					<tr>
+						<td  ><button hidden="hidden" type="button"  class="btn btn-default" style="width: 100px" id="conllection" th:value="${email.geteOrcollection()}"><span th:text="${email.geteOrcollection()}=='Y'?'已收藏':'收藏'" id="conllectiontext"></span></button></td>
+						<td  ><button hidden="hidden"  class="btn btn-default" style="width: 100px"  id="deleteemail">删除</button></td>
+					    <td  >
+							<a th:if="${email.geteFileurl()!=null}" th:href="'http://47.103.1.87:8081/downland/'+${email.geteFileurl()}"   class="btn btn-default" style="width: 100px" id="downlan">下载附件</a>
+						</td>
+					
+					</tr>
+				 </table>
+			</center>
+			</form>
+			</div>
+		</div>
+			   	  </div>
+			   </div>
+			</div>
+		 
+	</body>
+</html>
+

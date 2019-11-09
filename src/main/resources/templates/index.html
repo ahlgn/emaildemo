@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" th:href="@{css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+		<script type="text/javascript" th:src="@{js/jquery.js}" ></script>
+		<link rel="stylesheet" th:href="@{css/index.css}" />
+		
+	</head>
+	<script type="text/javascript">
+		var address="http://47.103.1.87:8081/"
+         function updateInfo() {
+			 $.ajax({
+				 url:address+"updateinfo/"+$("#u_ids").html(),
+				 type:"GET",
+				 dataType:"JSON",
+				 contentType:"application/json;charset=UTF-8",
+				 asyns:true,
+				 success:function (result) {
+                 $("#noreadinfo").html(result.num);
+				 }
+			 })
+		 }
+
+		 var  t1=window.setInterval(updateInfo,1000);
+	</script>
+
+	<body>
+		   <div class="all">
+			   <div class="center">
+
+			   	  <div class="top">
+			   	  	<div class="box-img">
+			   	  		<img  class="img-circle" th:src="@{'/images/' + ${userInfo.getInfoHeadimg()}}" style="width: 50px;height: 50px;"/>
+			   	  	</div>
+			   	  	<div class="box-info">
+			   	  		<table>
+			   	  			<tr>
+			   	  				<td><font face="arial narrow" size="3" id="u_remark" th:text="${userInfo.getInfoRemark()}">汤正广</font></td>
+			   	  			</tr>
+			   	  			<tr>
+			   	  				<td><font>账号：<span th:text="${user.getuId()}" id="u_ids">123456</span></font></td>
+			   	  			</tr>
+			   	  		</table>
+			   	  		
+			   	  	</div>
+			   	  	<div class="box-logo">
+			   	  		<tr>
+			   	  			<td>信鸽</td>
+			   	  			<td><img width="50px" height="50px" src="img/logo.jpg"/></td>
+			   	  			
+			   	  		</tr>
+			   	  	</div>
+			   	  </div>
+			   	  <!-- 左侧 -->
+			   	  <div class="left">
+			   	  	 <table class="table table-bordered box-table" style="border: 1px solid #0062CC;">
+			   	  	 	<tr>
+			   	  	 		<td colspan="1"><a th:href="@{'/writeemail/'+${user.getuId()}+'/'+0}" target="boxiframe">写信</a></td>
+			   	  	 		<td colspan="1"><a th:href="@{'/received/'+${user.getuId()}}"  target="boxiframe">收信<span th:id="noreadinfo" class="badge" style="background-color: #9FCDFF;"></span></a></td>
+			   	  	 	</tr>
+			   	  	 	
+			   	  	 	<tr><td colspan="2"><a th:href="@{'/send/'+${user.getuId()}}" target="boxiframe">已发送</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a th:href="@{'/collecctionview/'+${user.getuId()}}" target="boxiframe">已收藏</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a th:href="@{'/deleteemail/'+${user.getuId()} }" target="boxiframe">已删除</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a th:href="@{'/myfriends/'+${user.getuId()}}"  target="boxiframe">通讯录</a></td></tr>
+			   	  	 	<tr><td colspan="2"><a th:href="@{'/addfriends/'+${user.getuId()}}" target="boxiframe">添加联系人</a></td></tr>
+			   	  	    <tr><td colspan="2"><a th:href="@{'/myself/'+${user.getuId()}}" target="boxiframe">个人中心</a></td></tr>
+			   	  	 </table>
+			   	  </div>
+			   	  <div class="right">
+					<!-- 动态传入参数-->
+			   	  	<iframe name="boxiframe" class="box-iframe"  th:src="@{'/received/'+${user.getuId()}}" scrolling="yes" frameborder="0" ></iframe>
+			   	  </div>
+			   </div>
+			</div>
+		</div>
+	</body>
+</html>

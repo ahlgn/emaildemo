@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery.js}" ></script>
+		<link rel="stylesheet" href="/css/receive.css" />
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<script type="text/javascript">
+		var address="http://47.103.1.87:8081/";
+		$(function(){
+			/*          开始进入阅读            */
+			$("#reademailtable tr").click(function () {
+				var eid=$(this).attr('id');
+				/*alert(eid);*/
+				//获取到了id发送链接
+				window.location.href=address+"reademail/itemsend/"+eid;
+			})
+
+			/*          结束    */
+		})
+	</script>
+	<body>
+		<div class="all">
+			<div class="top">
+				&nbsp;&nbsp;&nbsp;
+				<font style="font-size: 23px;">已发送</font>
+			 	
+			</div>
+			<div class="navs">
+				<table class="table table-bordered">
+					<tr>
+						<td width="30%">收件人</td>
+						<td width="40%">主题</td>
+						<td width="30%">日期</td>
+					</tr>
+				</table>
+				
+			</div>
+			<div class="list">
+				<table class="table table-hover" id="reademailtable">
+					<tr  th:each="emailAndUserinfo:${emailAndUserinfos}" th:id="${emailAndUserinfo.getEmail().geteId()}">
+						<td width="15%" style="text-align: right; padding-right: 0px">
+                            <img width="35px" height="35px" class="img-circle" th:src="@{'/images/' + ${emailAndUserinfo.getUserinfo().getInfoHeadimg()}}" />&nbsp;
+                        </td>
+                        <td width="15%" style="text-align: left ;padding-top: 15px;padding-left: 0px">&nbsp;
+							<span th:if="${emailAndUserinfo.getFriends()==null}" th:text="${emailAndUserinfo.getUserinfo().getInfoUser()}">收件人</span>
+							<span th:unless="${emailAndUserinfo.getFriends()==null}" th:text="${emailAndUserinfo.getFriends().getfRemark()}"></span>
+						</td>
+
+						<td width="40%"><span th:text="${emailAndUserinfo.getEmail().geteTheme()}">主题</span></td>
+						<td width="30%"><span th:text="${#dates.format( emailAndUserinfo.getEmail().geteSendtime(),'yyyy-MM-dd  HH:mm:ss')}">日期</span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
